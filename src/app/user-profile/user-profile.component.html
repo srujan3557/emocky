@@ -1,0 +1,236 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row userProfileContainer">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Profile</h4>
+            <p class="card-category">Complete your profile</p>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Member ID" (keypress)="numberOnly($event)" maxlength="10"
+                    [(ngModel)]="loyaltyMember.loyaltyMemberId">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-label>Medallion Status</mat-label>
+                  <mat-select [(value)]="loyaltyMember.loyaltyMemberTierLevels" multiple>
+                    <mat-option *ngFor="let status of medallionStatusList" [value]="status">
+                      {{status.tierLevelCodeDesc}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-12">
+                <span *ngFor="let tier of loyaltyMember.loyaltyMemberTierLevels">
+                  <span class="badge-long badge-long-left border-transparent badge-mini" [ngClass]="{
+                        'bg-loyalty-badge-tier1-200': tier.tierLevelCode == 'TS' || tier.tierLevelCode == 'MM/TS',
+                        'bg-loyalty-badge-tier2-200': tier.tierLevelCode == 'DM' || tier.tierLevelCode == 'MM/DM',
+                        'bg-loyalty-badge-tier3-200': tier.tierLevelCode == 'PM' || tier.tierLevelCode == 'MM/PM',
+                        'bg-loyalty-badge-tier4-200': tier.tierLevelCode == 'GM' || tier.tierLevelCode == 'MM/GM',
+                        'bg-loyalty-badge-tier5-200': tier.tierLevelCode == 'FO' || tier.tierLevelCode == 'MM/FO',
+                        'bg-white primary-500 border': tier.tierLevelCode == 'FF' || tier.tierLevelCode == 'MM/FF',
+                        'bg-loyalty-badge-tier5-100': tier.tierLevelCode == 'NM',
+                        'high-contrast': tier.tierLevelCode == 'TS' || tier.tierLevelCode == 'MM/TS'
+                        || tier.tierLevelCode == 'DM' || tier.tierLevelCode == 'MM/DM'
+                        || tier.tierLevelCode == 'PM' || tier.tierLevelCode == 'MM/PM'
+                        || tier.tierLevelCode == 'GM' || tier.tierLevelCode == 'MM/GM'
+                        || tier.tierLevelCode == 'FO' || tier.tierLevelCode == 'MM/FO'
+                        || tier.tierLevelCode == 'NM' }">
+                    {{ (tier.tierLevelCode == 'TS' || tier.tierLevelCode == 'MM/TS'
+                          || tier.tierLevelCode == 'DM' || tier.tierLevelCode == 'MM/DM'
+                          || tier.tierLevelCode == 'PM' || tier.tierLevelCode == 'MM/PM'
+                          || tier.tierLevelCode == 'GM' || tier.tierLevelCode == 'MM/GM'
+                          || tier.tierLevelCode == 'FO' || tier.tierLevelCode == 'MM/FO'
+                          || tier.tierLevelCode == 'FF' || tier.tierLevelCode == 'MM/FF'
+                          || tier.tierLevelCode == 'NM')
+                          && tier.tierLevelCode !== null ? tier.tierLevelCode == 'TS' ? '360&deg;' : tier.tierLevelCode : ''
+                          }}
+                  </span>
+                  <span class="badge-long badge-long-right border-transparent white" [ngClass]="{
+                        'bg-loyalty-badge-tier1-100': tier.tierLevelCode == 'TS' || tier.tierLevelCode == 'MM/TS',
+                        'bg-loyalty-badge-tier2-100': tier.tierLevelCode == 'DM' || tier.tierLevelCode == 'MM/DM',
+                        'bg-loyalty-badge-tier3-100': tier.tierLevelCode == 'PM' || tier.tierLevelCode == 'MM/PM',
+                        'bg-loyalty-badge-tier4-100': tier.tierLevelCode == 'GM' || tier.tierLevelCode == 'MM/GM',
+                        'bg-loyalty-badge-tier5-100': tier.tierLevelCode == 'FO' || tier.tierLevelCode == 'MM/FO',
+                        'bg-white primary-500 border-right border-top border-bottom': tier.tierLevelCode == 'FF' || tier.tierLevelCode == 'MM/FF',
+                        'bg-loyalty-badge-tier5-200': tier.tierLevelCode == 'NM',
+                        'high-contrast': tier.tierLevelCode == 'TS' || tier.tierLevelCode == 'MM/TS'
+                        || tier.tierLevelCode == 'DM' || tier.tierLevelCode == 'MM/DM'
+                        || tier.tierLevelCode == 'PM' || tier.tierLevelCode == 'MM/PM'
+                        || tier.tierLevelCode == 'GM' || tier.tierLevelCode == 'MM/GM'
+                        || tier.tierLevelCode == 'FO' || tier.tierLevelCode == 'MM/FO'
+                        || tier.tierLevelCode == 'NM' }">
+                    {{tier.tierLevelCodeDesc}}
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div class="row">
+                <!-- <div class="col-md-2">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Prefix" type="text" (keypress)="alphabateOnly($event)" maxlength="4"
+                        [(ngModel)]="loyaltyMember.personName.namePrefixCode">
+                    </mat-form-field>
+                  </div> -->
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="First Name" type="text" (keypress)="alphabateOnly($event)" maxlength="20"
+                    [(ngModel)]="loyaltyMember.personName.firstName">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Middle Name" type="text" (keypress)="alphabateOnly($event)"
+                    maxlength="20" [(ngModel)]="loyaltyMember.personName.middleName">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Last Name" type="text" (keypress)="alphabateOnly($event)" maxlength="20"
+                    [(ngModel)]="loyaltyMember.personName.lastName">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
+                  <input matInput [matDatepicker]="picker" placeholder="Date of birth"  (formControl)="loyaltyMember.loyaltyMemberAccount.birthDate">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                  <mat-form-field>
+                    <mat-label>Gender</mat-label>
+                    <mat-select [(value)]="loyaltyMember.loyaltyMemberAccount.genderCode">
+                      <mat-option *ngFor="let category of gender" [value]="category.key">
+                        {{category.value}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-10" *ngFor="let phone of loyaltyMember.phones; let i = index">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <mat-form-field>
+                          <mat-label>Type</mat-label>
+                          <mat-select [(value)]="loyaltyMember.phones[i].contactPointCode">
+                            <mat-option *ngFor="let category of phoneCategories" [value]="category.key">
+                              {{category.value}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-8">
+                        <mat-form-field class="example-full-width">
+                          <input matInput placeholder="{{i == 0 ? 'Primary Phone Number' : 'Secondary Phone Number'}}"
+                            type="Phone" (keypress)="numberOnly($event)" maxlength="10"
+                            [(ngModel)]="loyaltyMember.phones[i].phoneNum" class="input-width">
+                          <a *ngIf="i > 0" class="removeItem" (click)="onPhoneDeleteClick()">X</a>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-1" *ngIf="loyaltyMember.phones.length < 2">
+                    <button mat-button type="button" (click)="onPhoneAddClick($event)" class="close"
+                      data-dismiss="alert" aria-label="Close">
+                      <i class="material-icons">add_box</i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-10" *ngFor="let phone of loyaltyMember.emailAccounts; let i = index">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <mat-form-field>
+                          <mat-label>Type</mat-label>
+                          <mat-select [(value)]="loyaltyMember.emailAccounts[i].contactPointCode">
+                            <mat-option *ngFor="let category of emailCategories" [value]="category.key">
+                              {{category.value}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-8">
+                        <mat-form-field class="example-full-width">
+                          <input matInput placeholder="{{i == 0 ? 'Primary Email' : 'Secondary Email'}}" type="email"
+                            [(ngModel)]="loyaltyMember.emailAccounts[i].emailAdr" class="input-width">
+                          <a *ngIf="i > 0" class="removeItem" (click)="onEmailDeleteClick()">X</a>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                   </div>
+                    <div class="col-md-1" *ngIf="loyaltyMember.emailAccounts.length < 2">
+                      <button mat-button type="button" (click)="onEmailAddClick($event)" class="close"
+                        data-dismiss="alert" aria-label="Close">
+                        <i class="material-icons">add_box</i>
+                      </button>
+                    </div>
+                </div>
+              </div>
+              <div class="row addressBlock" *ngFor="let phone of loyaltyMember.addresses; let i = index">
+                <div class="col-md-8">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Address" type="text"
+                      [(ngModel)]="loyaltyMember.addresses[i].addressLine1Text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="City" type="text"
+                      [(ngModel)]="loyaltyMember.addresses[i].cityLocalityName">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="State" type="text"
+                      [(ngModel)]="loyaltyMember.addresses[i].countrySubdivisionCode">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Country" type="text"
+                      [(ngModel)]="loyaltyMember.addresses[i].countryCode">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Postal Code" type="text" (keypress)="numberOnly($event)" maxlength="5"
+                      [(ngModel)]="loyaltyMember.addresses[i].postalCode">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <a *ngIf="i > 0" class="removeItem" (click)="onAddressDeleteClick()"><i
+                      class="material-icons">delete</i></a>
+                </div>
+              </div>
+              <div class="row" *ngIf="loyaltyMember.addresses.length < 2">
+                <div class="col-md-12">
+                  <button mat-button type="button" (click)="onAddressAddClick($event)" class="close"
+                    data-dismiss="alert" aria-label="Close">
+                    <i class="material-icons">add_box</i>
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-12">
+              <button mat-raised-button type="button" class="btn btn-danger pull-right"
+                (click)="onSubmitClick($event)">Submit</button>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

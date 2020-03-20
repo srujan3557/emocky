@@ -1,0 +1,306 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title">Add Creditcards</h4>
+              <p class="card-category">Complete your card details</p>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="creditcardForm" (ngSubmit)="submit()">
+                <div
+                  formArrayName="items"
+                  *ngFor="
+                    let item of creditcardForm.controls['items'].controls;
+                    let i = index
+                  "
+                >
+                  <div [formGroupName]="i">
+                      <div class="row">
+                          <div class="col-md-9">
+                            <h4>Preference #{{ i + 1 }}</h4>
+                          </div>
+                          <div class="col-md-1">
+                            <button
+                              mat-button
+                              type="button"
+                              (click)="addPreference()"
+                            >
+                              <i class="material-icons">add_box</i>
+                            </button>
+                          </div>
+                          <div class="col-md-1" *ngIf="creditcardForm.controls['items'].controls.length > 1">
+                            <button mat-button type="button" (click)="deleteRow(i)">
+                              <i class="material-icons">delete</i>
+                            </button>
+                          </div>
+                        </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            placeholder="Tokenized Card Number"
+                            formControlName="tokenizedCardNum"
+                            (keypress)="numberOnly($event)"
+                            maxlength="20"
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            placeholder="Card Discontinue Date"
+                            formControlName="cardDiscontinueDate"
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            placeholder="Payment CardType Code"
+                            formControlName="paymentCardTypeCode"
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            placeholder="CardHolder Name"
+                            formControlName="cardHolderName"
+                            (keypress)="alphabateOnly($event)"
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                          <mat-form-field class="example-full-width">
+                            <input
+                              matInput
+                              placeholder="SSN"
+                              formControlName="paymentCardLast4Num"
+                              (keypress)="numberOnly($event)"
+                            maxlength="4"
+                            />
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                          <mat-form-field class="example-full-width">
+                            <input
+                              matInput
+                              placeholder="Sequence Number"
+                              formControlName="preferenceSequenceNum"
+                              (keypress)="numberOnly($event)"
+                            />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    
+                    <div class="row" formGroupName="billingAdr">
+                      <div class="col-md-6">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            placeholder="Address"
+                            formControlName="addressLine1Text"
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                          <mat-form-field class="example-full-width">
+                            <input
+                              matInput
+                              placeholder="Additional Text"
+                              formControlName="addressLine2Text"
+                            />
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="example-full-width">
+                              <input
+                                matInput
+                                placeholder="Country Code"
+                                formControlName="countryCode"
+                              />
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-6">
+                              <mat-form-field class="example-full-width">
+                                <input
+                                  matInput
+                                  placeholder="District/Town"
+                                  formControlName="districtTownName"
+                                  (keypress)="alphabateOnly($event)"
+                                />
+                              </mat-form-field>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <input
+                                    matInput
+                                    placeholder="City"
+                                    formControlName="cityLocalityName"
+                                    (keypress)="alphabateOnly($event)"
+                                  />
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-4">
+                                  <mat-form-field class="example-full-width">
+                                    <input
+                                      matInput
+                                      placeholder="Location Name"
+                                      formControlName="prefectureLocationName"
+                                      (keypress)="alphabateOnly($event)"
+                                    />
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                      <input
+                                        matInput
+                                        placeholder="Postal Code"
+                                        formControlName="postalCode"
+                                        (keypress)="numberOnly($event)"
+                                      />
+                                    </mat-form-field>
+                                  </div>
+                                  <div class="col-md-4">
+                                      <mat-form-field class="example-full-width">
+                                        <input
+                                          matInput
+                                          placeholder="Country SubDivision Code"
+                                          formControlName="countrySubdivisionCode"
+                                        />
+                                      </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width">
+                                          <input
+                                            matInput
+                                            placeholder="Business Name"
+                                            formControlName="businessName"
+                                            (keypress)="alphabateOnly($event)"
+                                          />
+                                        </mat-form-field>
+                                      </div>
+                                      <div class="col-md-4">
+                                          <mat-form-field class="example-full-width">
+                                            <input
+                                              matInput
+                                              placeholder="Contact PointCode"
+                                              formControlName="contactPointCode"
+                                            />
+                                          </mat-form-field>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <mat-form-field class="example-full-width">
+                                              <input
+                                                matInput
+                                                placeholder="Primary Address"
+                                                formControlName="primaryAddress"
+                                              />
+                                            </mat-form-field>
+                                          </div>
+                                          <div class="col-md-6">
+                                              <mat-form-field class="example-full-width">
+                                                <input
+                                                  matInput
+                                                  placeholder="Address Sequence Number"
+                                                  formControlName="addressSequenceNum"
+                                                />
+                                              </mat-form-field>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <mat-form-field class="example-full-width">
+                                                  <input
+                                                    matInput
+                                                    placeholder="Address Start Local Date"
+                                                    formControlName="addressStartLocalDate"
+                                                  />
+                                                </mat-form-field>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <mat-form-field class="example-full-width">
+                                                    <input
+                                                      matInput
+                                                      placeholder="Address AliasName"
+                                                      formControlName="addressAliasName"
+                                                      (keypress)="alphabateOnly($event)"
+                                                    />
+                                                  </mat-form-field>
+                                                </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <mat-form-field class="example-full-width">
+                          <input
+                            matInput
+                            placeholder="Default Card"
+                            formControlName="defaultCard"
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                          <mat-form-field class="example-full-width">
+                            <input
+                              matInput
+                              placeholder="PaymentCard AliasName"
+                              formControlName="paymentCardAliasName"
+                              (keypress)="alphabateOnly($event)"
+                            />
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="example-full-width">
+                              <input
+                                matInput
+                                placeholder="Contact PointCode"
+                                formControlName="contactPointCode"
+                              />
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-6">
+                              <mat-form-field class="example-full-width">
+                                <input
+                                  matInput
+                                  placeholder="Previous Purchase Verification"
+                                  formControlName="previousPurchaseVerification"
+                                />
+                              </mat-form-field>
+                            </div>
+                    </div>
+                    <hr>
+                  </div>
+                </div>
+  
+                <div class=" pull-right">
+                  <!-- <button
+                    type="button"
+                    mat-raised-button
+                    class="btn btn-danger"
+                    (click)="addPreference()"
+                  >
+                    Add Next
+                  </button> -->
+                  <button mat-raised-button type="submit" class="btn btn-danger">
+                    Submit
+                  </button>
+                </div>
+                <div class="clearfix"></div>
+              </form>
+  
+              <!-- <code>{{creditcardForm.value | json}}</code> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

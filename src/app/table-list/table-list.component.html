@@ -1,0 +1,92 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-10">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">Simple Table</h4>
+            <p class="card-category">Here is a subtitle for this table</p>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <mat-form-field>
+                <input
+                  matInput
+                  (keyup)="applyFilter($event.target.value)"
+                  placeholder="Filter"
+                />
+              </mat-form-field>
+
+              <table
+                mat-table
+                [dataSource]="dataSource"
+                class="mat-elevation-z8"
+              >
+                <!-- Position Column -->
+                <ng-container matColumnDef="loyaltyMemberId">
+                  <th mat-header-cell *matHeaderCellDef class="text-primary">
+                    Loyalty MemberId
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.loyaltyMemberId }}
+                  </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="firstName">
+                  <th mat-header-cell *matHeaderCellDef class="text-primary">
+                    Fist Name
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.personName.firstName }}
+                  </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="lastName">
+                  <th mat-header-cell *matHeaderCellDef class="text-primary">
+                    Last Name
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.personName.lastName }}
+                  </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="Email">
+                  <th mat-header-cell *matHeaderCellDef class="text-primary">
+                    Email
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <span *ngFor="let email of element.emailAccounts; let isLast = last">{{ email.emailAdr }}{{isLast ? '' : ', '}}</span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef class="text-primary">
+                        Actions
+                      </th>
+                    <td mat-cell *matCellDef="let element" >
+                        <button mat-button [matMenuTriggerFor]="menu">Actions</button>
+                        <mat-menu #menu="matMenu">
+                          <a mat-menu-item [routerLink]="['/user-profile', element.loyaltyMemberId]">Add/Edit Profile</a>
+                          <a mat-menu-item [routerLink]="['/preferences', element.loyaltyMemberId]">Add/Edit Preferences</a>
+                          <a mat-menu-item [routerLink]="['/credit-cards', element.loyaltyMemberId]">Add/Edit Cards</a>
+                          <a mat-menu-item [routerLink]="['/companion', element.loyaltyMemberId]">Add/Edit Companion</a>
+                        </mat-menu>                        
+                    </td>
+                  </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                ></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

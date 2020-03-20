@@ -1,0 +1,90 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Add Companions</h4>
+            <p class="card-category">Complete your companion details</p>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="companionForm" (ngSubmit)="submit()">
+              <div formArrayName="items" *ngFor="
+                      let item of companionForm.controls['items'].controls;
+                      let i = index
+                    ">
+                <div [formGroupName]="i">
+                  <div class="row">
+                    <div class="col-md-9">
+                      <h4>Companion #{{ i + 1 }}</h4>
+                    </div>
+                    <div class="col-md-1">
+                      <button mat-button type="button" (click)="addCompanion()">
+                        <i class="material-icons">add_box</i>
+                      </button>
+                    </div>
+                    <div class="col-md-1" *ngIf="companionForm.controls['items'].controls.length > 1">
+                      <button mat-button type="button" (click)="deleteRow(i)">
+                        <i class="material-icons">delete</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder="First Name" formControlName="CompanionFirstName"
+                          (keypress)="alphabateOnly($event)" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Last Name" formControlName="CompanionLastName"
+                          (keypress)="alphabateOnly($event)" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <input matInput [matDatepicker]="picker" placeholder="Date of birth"
+                          (formControl)="CompanionDateOfBirth">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <mat-label>Gender</mat-label>
+                        <mat-select [(value)]="CompanionGenderCode">
+                          <mat-option *ngFor="let category of gender" [value]="category.key">
+                            {{category.value}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class=" pull-right">
+                <!-- <button
+                        type="button"
+                        mat-raised-button
+                        class="btn btn-danger"
+                        (click)="addCompanion()"
+                      >
+                        Add Next
+                      </button> -->
+                <button mat-raised-button type="submit" class="btn btn-danger">
+                  Submit
+                </button>
+              </div>
+              <div class="clearfix"></div>
+            </form>
+
+            <!-- <code>{{companionForm.value | json}}</code> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
